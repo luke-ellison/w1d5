@@ -1,23 +1,11 @@
 class PolyTreeNode
 
-  def initialize(value, parent = nil, children = [])
+  attr_reader :parent, :children, :value
 
+  def initialize(value, parent = nil, children = [])
     @value = value
     @parent = parent
     @children = children
-
-  end
-
-  def parent
-    @parent
-  end
-
-  def children
-    @children
-  end
-
-  def value
-    @value
   end
 
   def parent=(node)
@@ -27,20 +15,22 @@ class PolyTreeNode
   end
 
   def add_child(child_node)
-    child_node.parent=(self)
+    child_node.parent = self
   end
 
   def remove_child(child_node)
     raise "child_node is not a child" unless child_node.parent == self
-    child_node.parent=(nil)
+    child_node.parent = nil
   end
 
   def dfs(target_value)
     return self if target_value == @value
+
     @children.each do |child|
       child_dfs = child.dfs(target_value)
       return child_dfs if child_dfs
     end
+
     nil
   end
 
@@ -51,6 +41,7 @@ class PolyTreeNode
       return curr_node if curr_node.value == target_value
       curr_node.children.each { |child| queue << child }
     end
+
     nil
   end
 
