@@ -51,9 +51,7 @@ class TicTacToeNode
 
     (0...3).each do |row|
       (0...3).each do |col|
-        if @board.empty?([row, col])
-          empties << [row, col]
-        end
+        empties << [row, col] if @board.empty?([row, col])
       end
     end
 
